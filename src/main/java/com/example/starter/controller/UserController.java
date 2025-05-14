@@ -22,6 +22,21 @@ public class UserController {
     @PostMapping("/add")
     public String addUser(@RequestBody User user){ //here we are stating that we will receive the user from the request body
         userService.addUser(user);
-        return "user "+user.getName()+" added to the db successfully";
+        return user.getName()+" added to the db successfully";
+    }
+
+    @GetMapping
+    public User getUser(@RequestParam String name){
+        return userService.findByName(name);
+    }
+
+    @PutMapping("/update/{oldName}")
+    public String updateUserName(@PathVariable String oldName, @RequestBody User user){
+        return userService.updateName(oldName, user);
+    }
+
+    @DeleteMapping("/delete")
+    public String deleteUser(@RequestParam String name){
+        return userService.deleteUser(name);
     }
 }
