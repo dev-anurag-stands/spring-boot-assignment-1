@@ -21,6 +21,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String addUser(User user){
+        if(user == null || user.getName() == "" || user.getAge() <= 0 || user.getEmail() == ""){
+            throw new IllegalArgumentException("Invalid user");
+        }
         userRepository.save(user);
         return "user "+ user.getName() + "added successfully ";
     }

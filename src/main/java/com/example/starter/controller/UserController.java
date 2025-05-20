@@ -2,6 +2,7 @@ package com.example.starter.controller;
 
 import com.example.starter.model.User;
 import com.example.starter.service.interfaces.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +23,7 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addUser(@RequestBody User user){ //here we are stating that we will receive the user from the request body
-        if(user == null){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<String> addUser(@Valid @RequestBody User user){ //here we are stating that we will receive the user from the request body
         userService.addUser(user);
         return new ResponseEntity<>(user.getName()+" added successfully",HttpStatus.OK);
     }
